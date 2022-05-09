@@ -33,6 +33,20 @@ public class C1_IntList_StreamOrnekleri {
         eletoplam(list);
         System.out.println();
         peeknegatif(list);
+        System.out.println();
+        varmi(list);
+        System.out.println();
+        kucukmu( list);
+        System.out.println();
+        esitmu(list);
+        System.out.println();
+        sifiraesit(list);
+        System.out.println();
+        topla( list);
+        System.out.println();
+        son(list);
+        System.out.println();
+        System.out.println(list);
 
 
     }
@@ -55,10 +69,7 @@ public class C1_IntList_StreamOrnekleri {
                 filter(t->t>0).
                 collect(Collectors.toList()).
                 forEach(C1_IntList_StreamOrnekleri::yazdir);
-
     }
-
-
     // S4: list in elemanlarin karelerinden yeni bir list olusturalim
     public static void kareleri(List<Integer> list){
         list.stream().map(t->t*t).forEach(C1_IntList_StreamOrnekleri::yazdir);
@@ -89,7 +100,11 @@ public class C1_IntList_StreamOrnekleri {
     //S9: list pozitif elemanlari icn karelerini bulup birler basamagi 5 olmayanlardan yeni bir list olusturalim
 
     public static void kareleri1(List<Integer> list){
-        list.stream().filter(t->t>0).map(t->t*t).filter(t->t%10!=5).forEach(C1_IntList_StreamOrnekleri::yazdir);
+        list.stream().
+                filter(t->t>0).
+                map(t->t*t).
+                filter(t->t%10!=5).
+                forEach(C1_IntList_StreamOrnekleri::yazdir);
     }
 
     // S10 :list elemanlarini toplamini bulalim
@@ -105,37 +120,40 @@ public class C1_IntList_StreamOrnekleri {
 
     // S11 : peek ornegi cozelim - negatiflerin karelerinden list olusturalim
     public static void peeknegatif(List<Integer> list){
-        list.stream().filter(t->t<0).peek(e -> System.out.println("Filtered value: " + e))
+        list.stream()
+                .filter(t->t<0)
+                .peek(e -> System.out.println("Filtered value: " + e))
                 .map(t->t*t)
                 .peek(e -> System.out.println("Mapped value: " + e))
                 .collect(Collectors.toList());
-    //forEach(C1_IntList_StreamOrnekleri::yazdir);
-
+    }
+    // S12 : listeden 5 den buyuk  sayi var mi?
+    public static void varmi(List<Integer> list){
+        System.out.println(list.stream().anyMatch(t -> t > 5));
     }
 
-
-
-    // S12 : listeden 5 den buyuk  sayi var mi?
-
-
-
     // S13 : listenin tum elemanlari sifirdan kucuk mu?
-
-
+    public static void kucukmu(List<Integer> list){
+        System.out.println(list.stream().allMatch(t -> t < 0));
+    }
 
     // S14: listenin 100 e esit elemani yok mu ?
-
-
+    public static void esitmu(List<Integer> list){
+        System.out.println(list.stream().noneMatch(t -> t == 100));
+    }
 
     // S15: listenin sifira esit elemani yok mu?
-
-
+    public static void sifiraesit(List<Integer> list){
+        System.out.println(list.stream().noneMatch(t -> t == 0));
+    }
 
     // S16:  listenin ilk 5 elemanini topla?
-
-
-
+    public static void topla(List<Integer> list){
+        System.out.println(list.stream().limit(5).reduce(Integer::sum).orElseThrow());
+    }
     //S17: listenin son bes elemaninin  listele
-
+    public static void son(List<Integer> list){
+        list.stream().skip(list.size() - 5).forEach(C1_IntList_StreamOrnekleri::yazdir);
+    }
 
 }
